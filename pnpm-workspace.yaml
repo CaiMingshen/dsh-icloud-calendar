@@ -1,0 +1,7 @@
+# pnpm settings for this repository.
+#
+# esbuild is vitest's bundler and needs its postinstall to place its binary, so
+# its build script is allowed here. Anything else stays blocked: a dependency
+# build script runs arbitrary code at install time.
+allowBuilds:
+  esbuild: true

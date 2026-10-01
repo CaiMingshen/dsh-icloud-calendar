@@ -1,0 +1,6 @@
+# Normalize line endings on commit so Windows and Unix checkouts agree, and so
+# the committed lib/ output stays byte-identical for every consumer.
+* text=auto eol=lf
+*.png binary
+*.jpg binary
+*.ico binary

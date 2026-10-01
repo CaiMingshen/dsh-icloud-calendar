@@ -1,0 +1,52 @@
+# Mounting dsh-icloud-calendar in a DSH profile.
+#
+# Two ways to apply this:
+#
+# 1) Install the bundle, in which case its own cordis.patch.yml already inserts
+#    both rows and you only need the config below. Add this file's `insert`
+#    block to your profile's cordis.patch.yml, or put just the config on the
+#    rows the bundle inserted (a patch replaces the WHOLE config of a row, so
+#    restate every key you want to keep).
+#
+# 2) Reference the modules directly, without installing the bundle, by pointing
+#    at this checkout with absolute paths. That is what the rows below do.
+
+- insert:
+    - id: icloud-calendar-host
+      name: 'dsh-icloud-calendar/host'
+      config:
+        # Apple ID email. May be left empty and supplied as $ICLOUD_ACCOUNT.
+        account: ''
+        # Environment variable holding the app-specific password.
+        secretEnv: ICLOUD_APP_PASSWORD
+        # auto = OS credential store first, then the environment.
+        # env  = only the environment variable. store = only the store.
+        secretSource: auto
+        serverUrl: 'https://caldav.icloud.com/'
+        # Per-request deadline and the retry budget for transient failures.
+        timeoutMs: 30000
+        retries: 2
+        # HTTP proxy, e.g. http://127.0.0.1:7890; needs the optional "undici".
+        proxyUrl: ''
+        # Read these calendars by default; empty means every event calendar.
+        defaultCalendars: []
+        # How long a calendar listing stays cached.
+        cacheTtlMs: 300000
+        # Set false to make the whole plugin read-only.
+        allowWrites: true
+        # Deletes stay off until you turn them on deliberately.
+        allowDeletes: false
+        # Upper bound on objects one delete call may remove.
+        maxDeletesPerCall: 1
+        # Window caps, in days: reads, then deletes.
+        maxWindowDays: 366
+        maxDeleteWindowDays: 90
+        # auto | dpapi | keychain | secret-tool | none
+        storeKind: auto
+        # Empty means %LOCALAPPDATA%\dsh-icloud-calendar on Windows.
+        storeDirectory: ''
+        # Occurrences expanded per recurring series before a read gives up.
+        maxOccurrencesPerSeries: 400
+
+    - id: icloud-calendar-tools
+      name: 'dsh-icloud-calendar/tools'

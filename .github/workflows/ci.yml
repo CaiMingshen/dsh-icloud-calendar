@@ -1,0 +1,35 @@
+name: ci
+
+on:
+  push:
+    branches: [main, master]
+  pull_request:
+  workflow_dispatch:
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      # No `version` here on purpose: pnpm/action-setup reads `packageManager`
+      # from package.json, so CI runs the same pnpm that produced the lockfile
+      # and that understands this repo's `allowBuilds` setting.
+      - uses: pnpm/action-setup@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: pnpm
+
+      # The tests run against an in-process CalDAV server, so no Apple ID,
+      # network access or repository secret is needed here.
+      - run: pnpm install --frozen-lockfile
+      - run: pnpm typecheck
+      - run: pnpm test
+      - run: pnpm build
+
+      # lib/ is committed so `dsh plugin add github:...` needs no build step;
+      # fail loudly if a source change was not rebuilt before pushing.
+      - name: lib/ is up to date
+        run: git diff --exit-code -- lib

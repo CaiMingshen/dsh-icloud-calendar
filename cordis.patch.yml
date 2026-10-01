@@ -1,0 +1,9 @@
+# A DSH bundle: the profile mounts these two rows from this package.
+# `host` owns the CalDAV client and the `ctx.icloudCalendar` service; `tools`
+# exposes that service to the model. Mounting the host alone, without `tools`,
+# keeps the calendar reachable from code but invisible to the model.
+- insert:
+    - id: icloud-calendar-host
+      name: 'dsh-icloud-calendar/host'
+    - id: icloud-calendar-tools
+      name: 'dsh-icloud-calendar/tools'
