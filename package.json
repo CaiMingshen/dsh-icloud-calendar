@@ -5,6 +5,14 @@
   "type": "module",
   "license": "MIT",
   "packageManager": "pnpm@11.7.0",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/CaiMingshen/dsh-icloud-calendar.git"
+  },
+  "homepage": "https://github.com/CaiMingshen/dsh-icloud-calendar#readme",
+  "bugs": {
+    "url": "https://github.com/CaiMingshen/dsh-icloud-calendar/issues"
+  },
   "engines": {
     "node": "^22.19.0 || >=24.0.0",
     "dsh": ">=0.2.0-rc.2"

@@ -11,8 +11,8 @@
 # browser vision voice docs skill workflow git notify dev security remote
 # market fun
 
-url: https://github.com/<your-account>/dsh-icloud-calendar
-name: <your-account>/dsh-icloud-calendar
+url: https://github.com/CaiMingshen/dsh-icloud-calendar
+name: CaiMingshen/dsh-icloud-calendar
 category: tools
 description:
   en: Apple iCloud Calendar over CalDAV, with an OS credential store, request deadlines, and a dry-run delete that must confirm an exact object count.
